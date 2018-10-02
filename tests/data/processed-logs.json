@@ -1,0 +1,44 @@
+{
+  "task_results": [
+    {
+      "processing_status": "SUCCESS",
+      "level1": "/g/data/v10/reprocess/ls5/level1/2010/01/LS5_TM_OTH_P51_GALPGS01-002_089_082_20100129",
+      "granule": "LT50890822010029ASA00",
+      "failed_task": null,
+      "batch_group_id": "batchid-f8de707749",
+      "job_group_id": "jobid-ca5b92",
+      "exception": null,
+      "error_log": null,
+      "error_ts": null
+    },
+    {
+      "processing_status": "FAILED",
+      "level1": "/g/data/v10/reprocess/ls5/level1/2010/01/LS5_TM_OTH_P51_GALPGS01-002_089_082_20100129",
+      "granule": "LT50890822010029ASA00",
+      "failed_task": "DataStandardisation",
+      "batch_group_id": "batchid-f8de707749",
+      "job_group_id": "jobid-ca5b92",
+      "exception": null,
+      "error_log": null,
+      "error_ts": null
+    },
+    {
+      "processing_status": "FAILED",
+      "level1": "/g/data/v10/reprocess/ls5/level1/2011/01/LS5_TM_OTH_P51_GALPGS01-002_089_082_20100619",
+      "granule": "LT50890822010029ASA00",
+      "failed_task": "Package",
+      "batch_group_id": "batchid-f8de707749",
+      "job_group_id": "jobid-ca5b92",
+      "exception": "'gqa'",
+      "error_log": "/g/data1a/u46/users/av8534/wagl-testing/logdir/batchid-f8de707749/jobid-ca5b92/errors.log",
+      "error_ts": "2018-09-20T15:48:06.543000+10:00"
+    }
+  ],
+  "batch_results": [
+    {
+      "group_id": "batchid-f8de707749",
+      "submit_time": "2018-09-18T11:01:46+10:00",
+      "user": "user1"
+    }
+  ]
+}

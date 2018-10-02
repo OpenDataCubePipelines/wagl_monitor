@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <!-- For Production purposes go to https://datatables.net/download/ to get files -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/css/foundation.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/zf/jszip-2.5.0/dt-1.10.18/b-1.5.2/b-colvis-1.5.2/b-html5-1.5.2/fh-3.1.4/sl-1.2.6/datatables.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script stc="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/js/foundation.min.js"></script>
+   
+    <script type="text/javascript" src="https://cdn.datatables.net/v/zf/jszip-2.5.0/dt-1.10.18/b-1.5.2/b-colvis-1.5.2/b-html5-1.5.2/fh-3.1.4/sl-1.2.6/datatables.min.js"></script>
+    <script type="text/javascript" src="/static/monitor-view.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/stylesheet.css" />
+    <script>var apiEndpoint = {{ api_endpoint|tojson }}; </script>
+    <script type="text/javascript" src="{{column_config}}"></script>
+    <title>Monitoring: {{ model }}</title>
+  </head>
+  <body>
+    <header>
+      <div class="title-bar">WAGL Results Viewer</div>
+    </header>
+    <main>
+      <section>
+        <h3>{{ model }} Results</h3>
+        <table class="processing-results display">
+          <thead><tr></tr></thead>
+          <tbody></tbody>
+          <tfoot><tr></tr></tfoot>
+        </table>
+      </section>
+    </main>
+  </body>
+</html>
+

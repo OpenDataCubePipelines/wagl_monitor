@@ -2,14 +2,11 @@ import pytest
 
 from datetime import datetime
 
-from log_ui.models import create_db, drop_db, WaglBatch, WaglBatchItem, Session
-from log_ui.utils import create_app
+from wagl_monitor.models import create_db, drop_db, WaglBatch, WaglBatchItem, Session
+from wagl_monitor.utils import create_app
 
-TEST_SETTINGS = 'log_ui.settings.Test'
 
-CMD_CTX = {
-    'settings': TEST_SETTINGS
-}
+TEST_SETTINGS = 'wagl_monitor.settings.TestConfig'
 
 
 TEST_DATA = {

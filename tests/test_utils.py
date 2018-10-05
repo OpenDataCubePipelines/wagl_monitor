@@ -2,8 +2,8 @@ import unittest
 
 from datetime import datetime
 
-from log_ui.models import WaglBatch
-from log_ui.utils import JSONEncoderPlus
+from wagl_monitor.models import WaglBatch
+from wagl_monitor.utils import JSONEncoderPlus
 
 
 class TestJSONEncoder(unittest.TestCase):

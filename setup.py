@@ -7,7 +7,7 @@ install_requires = [
     "flask",
     "pathlib",
     "python-dateutil",
-    "sqlalchemy",
+    "sqlalchemy [postgresql]",
     "pathlib",
     "py-dateutil",
 #    "sqlite3",
@@ -25,8 +25,10 @@ setup(
     packages=find_packages(),
     install_requires=install_requires,
     tests_require=tests_require,
-    entry_points='''\
-    [console_scripts]
-    wagl_monitor=wagl_monitor.scripts.wagl_monitor:cli
-    ''',
+    entry_points= {
+        'console_scripts': [
+            'wagl-log-extract=wagl_monitor.scripts.wagl_log_extract:cli',
+            'wagl-log-results=wagl_monitor.scripts.wagl_log_results:cli'
+        ]
+    },
 )

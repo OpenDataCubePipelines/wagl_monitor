@@ -18,7 +18,7 @@ class JSONEncoderPlus(JSONEncoder):
         return super().default(self, obj)
 
 
-def create_app(config='log_ui.settings.Default'):
+def create_app(config='wagl_monitor.settings.DefaultConfig'):
     app = Flask(__name__)
     app.config.from_object(config)
     app.json_encoder = JSONEncoderPlus

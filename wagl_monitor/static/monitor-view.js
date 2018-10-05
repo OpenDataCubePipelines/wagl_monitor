@@ -22,16 +22,26 @@ $(document).ready(function() {
         var column = this;
         // Only add search field for searchable columns
         if ( columnConfig[idx].searchable !== false ) {
-          column.footer().innerHTML = '<input type="text" placeholder="' + columnConfig[idx]['title'] + '" />';
-
-          $( 'input', this.footer() ).on( 'keyup change', function(event) {
-            // Only search on enter keypress
-            if( event.which == 13 && column.search() !== this.value ) {
-              column.search(this.value).draw();
-            }
-          });
+          column.footer().innerHTML = '<input class="column-search" type="text" placeholder="' + columnConfig[idx]['title'] + '" />';
         }
       });
+      // Applies changes for every searchable column before calling draw
+      $( 'input.column-search' ).on( 'keyup change', function(eventParams) {
+        if (eventParams.which == 13 ) {
+          eventParams.performSearch = false;
+          table.columns().every( function(table, _, idx) {
+            var column = this,
+              columnInput = $('input.column-search', column.footer());
+            if ( columnInput.val() !== undefined && column.search() !== columnInput.val()) {
+              column.search(columnInput.val());
+              eventParams.performSearch = true;
+            }
+          });
+          if ( eventParams.performSearch ) {
+            table.draw();
+          }
+        }
+      })
     }
   });
   window.dev = table;

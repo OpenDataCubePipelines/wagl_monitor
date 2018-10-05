@@ -131,7 +131,7 @@ class TestApiResults(unittest.TestCase):
         self.assertEqual(results['recordsTotal'], 3)
 
     def test_exception_in_results(self):
-        with mock.patch('log_ui.web_api.Session', autospec=True) as session_fact:
+        with mock.patch('wagl_monitor.web_api.Session', autospec=True) as session_fact:
             # Mock sqlalchemy query
             session_obj = session_fact.return_value
             query_obj = session_obj.query.return_value

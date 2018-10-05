@@ -16,7 +16,8 @@ from sqlalchemy.ext.declarative import declarative_base
 CACHE_TIME = 300
 SCHEMA_NAME = 'monitor'
 
-Base = declarative_base(MetaData(schema=SCHEMA_NAME))
+_MetaData = MetaData(schema=SCHEMA_NAME)
+Base = declarative_base(metadata=_MetaData)
 Session = sessionmaker()
 
 

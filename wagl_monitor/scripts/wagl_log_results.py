@@ -1,6 +1,9 @@
 import json
 import logging
 import click
+import webbrowser
+import random
+import threading
 
 from ..models import WaglBatchItem, Session
 from ..models import create_db, drop_db, get_engine
@@ -18,13 +21,22 @@ _LOG = logging
 
 
 @click.group()
-@click.option('--settings', default='log_ui.settings.Default')
+@click.option(
+    '--settings',
+    default='wagl_monitor.settings.DefaultConfig',
+    help='Settings file to use for monitor tool'
+)
 @click.pass_context
 def cli(ctx, settings):
+    """
+    Scripts to manage the monitoring tool
+    """
+    if not hasattr(ctx, 'obj') or not ctx.obj:
+        ctx.obj = dict()
     ctx.obj['settings'] = settings
 
 
-@cli.command('add-logs')
+@cli.command('add-logs', help='Sync processed log file to monitoring database')
 @click.argument('json-file', type=click.Path(exists=True))
 @click.pass_context
 def add_logs(ctx, json_file):
@@ -57,25 +69,41 @@ def add_logs(ctx, json_file):
             session.close()
 
 
-@cli.command('init-db')
+@cli.command('init-db', help='Create database schema')
+@click.confirmation_option(help='Are you sure you want to create the schema?')
 @click.pass_context
-def initdb(ctx):
+def init_db(ctx):
     with create_app(ctx.obj['settings']).app_context():
         create_db()
+    click.echo("Initialised the database")
 
 
-@cli.command('destroy-db')
+@cli.command('drop-db', help='Teardown database')
+@click.confirmation_option(help='Are you sure you want to drop the database?')
 @click.pass_context
-def destroydb(ctx):
+def drop_db(ctx):
     with create_app(ctx.obj['settings']).app_context():
         drop_db()
+    click.echo("Dropped the database")
 
 
-@cli.command('start-server')
+@cli.command('start-server', help='Start webserver')
+@click.option('--no-browser', is_flag=True)
 @click.pass_context
-def start_server(ctx):
+def start_server(ctx, no_browser):
+    port = None
+    if not no_browser:
+        port = 5000 + random.randint(0, 999)
+        threading.Timer(
+            1.25, 
+            lambda: webbrowser.open('http://localhost:'+ str(port))
+        ).start()
+    # bind engine
     app = create_app(ctx.obj['settings'])
-    app.run()
+    # Configure the session
+    get_engine(app.config.get('DATABASE_URI'))
+
+    app.run(port=port)
 
 
 if __name__ == '__main__':

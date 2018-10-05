@@ -17,7 +17,7 @@ from pathlib import Path
 import sqlite3
 import click
 
-from .utils import JSONEncoderPlus
+from ..utils import JSONEncoderPlus
 
 
 logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
@@ -28,13 +28,16 @@ ERRORS_FILE='errors.log'
 TASK_REGEX = f'.*/(?P<batch_group_id>batchid-[a-z0-9]+)/(?P<job_group_id>jobid-[a-z0-9]+)/{TASK_DATABASE_NAME}$'
 DB_ITERATION_COUNT = 200
 
+class LuigiStates(enum.Enum):
+    PENDING = 0
+    RUNNING = 1
+    FAILED = 2
+    DONE = 3
+
 QUERY__GET_TASKS = '''\
 SELECT MAX(
     CASE event_name
-    WHEN 'PENDING' then 0
-    WHEN 'RUNNING' then 1
-    WHEN 'FAILED'  then 2
-    WHEN 'DONE'    then 3
+    {luigi_states}
     END
 ) as processing_status, tp.level1 as 'level1', tp.granule as 'granule', ft.name as 'failed_task'
 FROM (
@@ -65,7 +68,10 @@ LEFT JOIN (
     WHERE te2.id IS NULL and te1.event_name = 'FAILED'
 ) as ft ON ft.granule = tp.granule AND te.event_name != 'DONE'
 GROUP BY tp.level1, tp.granule, ft.name;
-'''
+'''.format(luigi_states=''.join(
+    '\tWHEN "{}" THEN {}\n'.format(state.name, state.value)
+    for state in LuigiStates
+))
 
 
 def dict_factory(cursor, row):
@@ -146,10 +152,23 @@ def parse_error_file(error_file, split_term='}\n', start_term='{'):
 
 
 @click.command()
-@click.argument('base-dir', type=click.Path(exists=True, resolve_path=True))
-@click.option('--out-file', type=click.Path(exists=False), default='wagl-processed-logs.json')
-def entrypoint(base_dir, out_file):
-    _LOG.debug('Starting application')
+@click.argument(
+    'base-dir',
+    type=click.Path(exists=True, resolve_path=True),
+    )
+@click.option(
+    '--outfile', 
+    type=click.Path(exists=False),
+    default='wagl-processed-logs.json',
+    help='Specify the path of the outfile'
+    )
+def cli(base_dir, out_file):
+    """ 
+    Utility to collate logs from the errors file and task database outputted to JSON.
+
+    Files are searched for from the BASE_DIR specified
+    """
+
     results = {
         'task_results': [],
         'batch_results': {}
@@ -161,8 +180,8 @@ def entrypoint(base_dir, out_file):
 
         # Use batch directory modified time as a proxy for the job submit time
         # identify the directory by looking at the next delimiter after batchid
-        batch_dir_stats = os.stat(db_path[:dp_path.index('/', db_path.index('batchid'))])
-        batch_mtime = datetime.fromtimestamp(batch_dir_stats.mtime).replace(tzinfo=tzlocal())
+        batch_dir_stats = os.stat(db_path[:db_path.index('/', db_path.index('batchid'))])
+        batch_mtime = datetime.fromtimestamp(batch_dir_stats.st_mtime).replace(tzinfo=tzlocal())
         batch_user = getpwuid(batch_dir_stats.st_uid).pw_name
 
         if db_attrs['batch_group_id'] not in results['batch_results']:
@@ -197,6 +216,7 @@ def entrypoint(base_dir, out_file):
                             'error_log': None,
                             'error_ts': None
                         })
+                    task['processing_status'] = LuigiStates(task['processing_status']).name
                     results['task_results'].append(task)
 
     results['batch_results'] = list(results['batch_results'].values())  # convert from dict to list
@@ -205,4 +225,4 @@ def entrypoint(base_dir, out_file):
 
 
 if __name__ == '__main__':
-    entrypoint()
+    cli()

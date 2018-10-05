@@ -7,8 +7,8 @@ import sys
 
 from click.testing import CliRunner
 
-from log_ui.scripts.wagl_monitor import add_logs, cli
-from log_ui.models import Session, WaglBatch, WaglBatchItem
+from wagl_monitor.scripts.wagl_log_results import cli
+from wagl_monitor.models import Session, WaglBatch, WaglBatchItem
 
 from .conftest import TEST_SETTINGS
 

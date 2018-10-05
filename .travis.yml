@@ -1,0 +1,18 @@
+language: python
+python:
+  - '3.6'
+cache:
+  directories:
+    - $HOME/.cache/pip
+
+git:
+  depth: 5
+
+services:
+  - postgresql
+
+before_script:
+  - psql -c 'create database monitor_ci;' -U postgres
+
+script:
+  python setup.py test

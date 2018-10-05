@@ -1,0 +1,50 @@
+2018-09-20 15:48:06,541: ERROR: {
+ "exception": "'gqa'",
+ "level1": "/g/data/v10/reprocess/ls5/level1/2010/01/LS5_TM_OTH_P51_GALPGS01-002_089_082_20100129",
+ "params": {
+  "acq_parser_hint": "",
+  "cleanup": "False",
+  "granule": "LT50890822010029ASA00",
+  "level1": "/g/data/v10/reprocess/ls5/level1/2010/01/LS5_TM_OTH_P51_GALPGS01-002_089_082_20100129",
+  "pkgdir": "/g/data/u46/users/av8534/wagl-testing/output/2010-01-29",
+  "products": "[\"NBART\", \"LAMBERTIAN\"]",
+  "workdir": "/g/data/u46/users/av8534/wagl-testing/workdir/batchid-f8de707749/jobid-ca5b92/LS5_TM_OTH_P51_GALPGS01-002_089_082_20100129.ARD/LT50890822010029ASA00",
+  "yamls_dir": "None"
+ },
+ "task": "Package",
+ "traceback": [
+  "Traceback (most recent call last):",
+  "  File \"/g/data2/v10/private/modules/wagl/5.2.0-s2beta/lib/python3.6/site-packages/luigi-2.7.6-py3.6.egg/luigi/worker.py\", line 205, in run",
+  "    new_deps = self._run_get_new_deps()",
+  "  File \"/g/data2/v10/private/modules/wagl/5.2.0-s2beta/lib/python3.6/site-packages/luigi-2.7.6-py3.6.egg/luigi/worker.py\", line 142, in _run_get_new_deps",
+  "    task_gen = self.task.run()",
+  "  File \"/g/data1a/u46/users/av8534/modules/wagl/av8534/lib/python3.6/site-packages/tesp-0.0.5-py3.6.egg/tesp/workflow.py\", line 149, in run",
+  "    inputs['gqa'].path, self.yamls_dir, self.pkgdir, self.granule,",
+  "KeyError: 'gqa'"
+ ]
+}
+2018-09-20 15:48:06,543: ERROR: {
+ "exception": "'gqa'",
+ "level1": "/g/data/v10/reprocess/ls5/level1/2010/01/LS5_TM_OTH_P51_GALPGS01-002_089_082_20100129",
+ "params": {
+  "acq_parser_hint": "",
+  "cleanup": "False",
+  "granule": "LT50890822010029ASA00",
+  "level1": "/g/data/v10/reprocess/ls5/level1/2010/01/LS5_TM_OTH_P51_GALPGS01-002_089_082_20100129",
+  "pkgdir": "/g/data/u46/users/av8534/wagl-testing/output/2010-01-29",
+  "products": "[\"NBART\", \"LAMBERTIAN\"]",
+  "workdir": "/g/data/u46/users/av8534/wagl-testing/workdir/batchid-f8de707749/jobid-ca5b92/LS5_TM_OTH_P51_GALPGS01-002_089_082_20100129.ARD/LT50890822010029ASA00",
+  "yamls_dir": "None"
+ },
+ "task": "Package",
+ "traceback": [
+  "Traceback (most recent call last):",
+  "  File \"/g/data2/v10/private/modules/wagl/5.2.0-s2beta/lib/python3.6/site-packages/luigi-2.7.6-py3.6.egg/luigi/worker.py\", line 205, in run",
+  "    new_deps = self._run_get_new_deps()",
+  "  File \"/g/data2/v10/private/modules/wagl/5.2.0-s2beta/lib/python3.6/site-packages/luigi-2.7.6-py3.6.egg/luigi/worker.py\", line 142, in _run_get_new_deps",
+  "    task_gen = self.task.run()",
+  "  File \"/g/data1a/u46/users/av8534/modules/wagl/av8534/lib/python3.6/site-packages/tesp-0.0.5-py3.6.egg/tesp/workflow.py\", line 149, in run",
+  "    inputs['gqa'].path, self.yamls_dir, self.pkgdir, self.granule,",
+  "KeyError: 'gqa'"
+ ]
+}

@@ -25,10 +25,13 @@ setup(
     packages=find_packages(),
     install_requires=install_requires,
     tests_require=tests_require,
-    entry_points= {
+    entry_points={
         'console_scripts': [
             'wagl-log-extract=wagl_monitor.scripts.wagl_log_extract:cli',
             'wagl-log-results=wagl_monitor.scripts.wagl_log_results:cli'
         ]
+    },
+    extras_require={
+        'testing': tests_require
     },
 )

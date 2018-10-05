@@ -15,4 +15,4 @@ class TestConfig(DevelopConfig):
 
 
 class DefaultConfig(BaseConfig):
-    DATABASE_URI = 'postgresql://localhost:5432/wagl_monitor'
+    DATABASE_URI = 'postgresql://agdcstaging-db.nci.org.au:5432/wagl_monitor'

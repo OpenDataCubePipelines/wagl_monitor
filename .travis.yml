@@ -13,6 +13,7 @@ services:
 
 before_script:
   - psql -c 'create database monitor_ci;' -U postgres
+  - pip install '.[testing]'
 
 script:
   python setup.py test

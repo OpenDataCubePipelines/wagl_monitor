@@ -162,7 +162,7 @@ def parse_error_file(error_file, split_term='}\n', start_term='{'):
     default='wagl-processed-logs.json',
     help='Specify the path of the outfile'
     )
-def cli(base_dir, out_file):
+def cli(base_dir, outfile):
     """ 
     Utility to collate logs from the errors file and task database outputted to JSON.
 
@@ -220,7 +220,7 @@ def cli(base_dir, out_file):
                     results['task_results'].append(task)
 
     results['batch_results'] = list(results['batch_results'].values())  # convert from dict to list
-    with open(out_file, 'w') as fd:
+    with open(outfile, 'w') as fd:
         fd.write(json.dumps(results, cls=JSONEncoderPlus))
 
 

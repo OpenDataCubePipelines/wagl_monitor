@@ -40,7 +40,7 @@ class TestLogExtract(unittest.TestCase):
         with tempfile.NamedTemporaryFile() as temp:
             result = runner.invoke(
                 cli,
-                ['--out-file', str(temp.name), str(RAW_LOG_DIR)]
+                ['--outfile', str(temp.name), str(RAW_LOG_DIR)]
             )
 
             if result.exit_code:  # not 0
